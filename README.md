@@ -146,3 +146,78 @@ Confirma:
 - el branch actual es el esperado (ej. `main`)
 - `origin` apunta al repo del proyecto actual
 - `upstream` apunta al repo base `landing-starter-kit`
+
+## Prompt Maestro Para Nuevos Repos White-Label
+
+Usa este prompt al abrir un chat nuevo en el repo clonado/customizado.
+
+### Prompt Maestro (copiar y pegar)
+
+```txt
+Actúa como mi partner técnico para este repositorio.
+
+Contexto obligatorio:
+- Este repositorio es un proyecto derivado de un white-label starter.
+- Este repo actual es independiente del repo base.
+- Nunca debes asumir cambios en el repo base; trabaja solo en este repo actual.
+- El objetivo es construir una landing de tipo {{tipoDeProyecto}}.
+
+Objetivo del proyecto:
+- Marca: {{nombreMarca}}
+- Industria: {{tipoDeProyecto}}
+- Público objetivo: {{publicoObjetivo}}
+- Idiomas: {{idiomas}} (ej: en, es)
+- CTA principal: {{ctaPrincipal}}
+- Estilo visual deseado: {{estiloVisual}}
+- Secciones requeridas: {{seccionesRequeridas}}
+
+Reglas de trabajo:
+1. Mantén enfoque white-label reusable: componentes configurables y contenido desacoplado.
+2. Antes de editar, revisa estructura y propone cambios concretos por archivo.
+3. Implementa directamente los cambios, luego valida con lint/build.
+4. Si algo requiere credenciales (ej: EmailJS), usa .env.local y conserva .env.example como plantilla.
+5. Prioriza responsive (mobile-first) y accesibilidad básica.
+6. Si detectas mejoras reutilizables para futuros proyectos, proponlas como bloques opcionales.
+
+Formato de respuesta esperado:
+- Resumen corto de lo que harás.
+- Cambios aplicados por archivo.
+- Validación ejecutada (lint/build).
+- Siguientes pasos recomendados.
+```
+
+### Prompt Corto (rápido)
+
+```txt
+Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para {{tipoDeProyecto}} con estilo {{estiloVisual}} e idiomas {{idiomas}}. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
+```
+
+### Ejemplos de uso
+
+Ejemplo 1 (Clínica):
+
+```txt
+Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para clínica de salud integral con estilo profesional/minimalista e idiomas es,en. Secciones: Hero, Especialidades, Equipo médico, FAQs, Contacto con EmailJS. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
+```
+
+Ejemplo 2 (Salón de belleza):
+
+```txt
+Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para salón de belleza con estilo elegante/moderno e idiomas es,en. Secciones: Hero, Servicios, Galería, Testimonios, Contacto con WhatsApp y EmailJS. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
+```
+
+Ejemplo 3 (Servicio de limpieza):
+
+```txt
+Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para servicio de limpieza residencial/comercial con estilo limpio/corporativo e idiomas es,en. Secciones: Hero, Planes, Cobertura, Testimonios, FAQs, Contacto. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
+```
+
+### Variables sugeridas para reemplazar
+
+- `{{tipoDeProyecto}}`: clínica, salón de belleza, limpieza, abogado, etc.
+- `{{nombreMarca}}`: nombre comercial final.
+- `{{publicoObjetivo}}`: segmento principal.
+- `{{idiomas}}`: `es,en` o `en` únicamente.
+- `{{ctaPrincipal}}`: “Agendar cita”, “Solicitar cotización”, etc.
+- `{{estiloVisual}}`: minimalista, elegante, corporativo, moderno.
+- `{{seccionesRequeridas}}`: lista de bloques obligatorios.
