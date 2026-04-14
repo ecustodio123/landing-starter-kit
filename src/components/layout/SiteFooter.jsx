@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useI18n } from "../../lang/i18n";
 import Container from "../primitives/Container";
+import SocialLinks from "../primitives/SocialLinks";
 
 function SiteFooter() {
   const { t } = useI18n();
@@ -8,9 +9,10 @@ function SiteFooter() {
   return (
     <footer className="footer">
       <Container className="footer-grid">
-        <div>
+        <div className="footer-brand">
           <h3 style={{ marginTop: 0 }}>{t("footer.title")}</h3>
           <p>{t("footer.description")}</p>
+          <SocialLinks tone="footer" />
         </div>
         <ul className="footer-links">
           <li>
