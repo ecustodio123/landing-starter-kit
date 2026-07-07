@@ -1,33 +1,50 @@
-# Landing Starter Kit
+# Frontend Starter Kit
 
-Reusable React starter for building landing pages fast.
+Base React para crear landing pages o sitios frontend desde cero, manteniendo una estructura consistente entre proyectos.
+
+Este repositorio no incluye componentes de negocio ni una landing final. La intención es clonar la base, definir el requerimiento del nuevo proyecto y construir los componentes necesarios dentro de la estructura existente.
 
 ## Included
 
 - React + Vite
-- React Router (`/` and `/components` out of the box)
+- React Router
+- i18n simple con diccionarios JSON (`en`, `es`)
 - Tailwind CSS v4 support
 - Design tokens (`src/theme/tokens.css`)
-- Reusable components (`primitives`, `composites`, `layout`, `blocks`)
-- Loop carousel (click + drag, with mobile autoplay)
+- Theme base (`src/theme/base.css`, `src/theme/components.css`)
+- Material UI
+- React Icons
+- Organización inicial de carpetas
 - Cloudflare SPA fallback (`public/_redirects`)
 
 ## Structure
 
 ```txt
 src/
-  app/
+  assets/
   components/
     primitives/
     composites/
     layout/
     blocks/
   data/
+  lang/
   pages/
   theme/
 ```
 
-## Local development
+## Folder Guidelines
+
+- `components/primitives`: elementos pequeños y reutilizables, como botones, inputs, badges o wrappers simples.
+- `components/composites`: piezas compuestas que combinan primitives, como cards, nav items o formularios parciales.
+- `components/layout`: estructura compartida, como headers, footers, shells o wrappers de página.
+- `components/blocks`: secciones completas de landing, como hero, servicios, testimonios, FAQ o contacto.
+- `data`: contenido o configuración desacoplada de los componentes.
+- `lang`: diccionarios e infraestructura de i18n.
+- `pages`: vistas conectadas a React Router.
+- `theme`: tokens, estilos base y estilos globales del proyecto.
+
+## Local Development
 
 ```bash
 npm install
@@ -40,43 +57,15 @@ npm run dev
 npm run build
 ```
 
-## EmailJS Setup (white-label)
+## Environment Variables
 
-Este starter incluye integración de EmailJS en `ContactBlock`.
-
-1. Copia variables de entorno:
+Usa `.env.example` como plantilla para variables públicas de Vite.
 
 ```bash
 cp .env.example .env.local
 ```
 
-2. Completa tus valores en `.env.local`:
-
-```env
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
-```
-
-3. Reinicia el servidor (`npm run dev`) si estaba corriendo.
-
-Notas:
-
-- `.env.local` no se versiona.
-- `.env.example` sí se versiona para mantener la plantilla.
-- Si falta configuración, el formulario muestra un mensaje de `configError`.
-
-## Reusable Components Detected From `aliaga-salud`
-
-Componentes recomendados para portar cuando un nuevo proyecto lo necesite:
-
-- `TrustStatsBlock`: métricas de confianza para secciones above-the-fold.
-- `CarePathBlock`: pasos del proceso (ideal para servicios médicos/consultoría).
-- `FaqBlock`: preguntas frecuentes reutilizables por rubro.
-- `StaffBlock` + `StaffCard`: perfiles de equipo/profesionales.
-- `ContactBlock` variante con panel de canales (teléfono, WhatsApp, dirección, horario).
-
-Estos bloques son opcionales y deben activarse según el tipo de landing que estés construyendo.
+Agrega solo variables necesarias para el proyecto actual. Recuerda que las variables expuestas al frontend deben iniciar con `VITE_`.
 
 ## Deploy to Cloudflare Pages
 
@@ -93,14 +82,16 @@ public/_redirects
 
 for SPA route refresh support.
 
-## White App Workflow (usar este repo como base)
+## White App Workflow
 
-Este proyecto está pensado como **white app / starter kit**:
+Este proyecto está pensado como base reutilizable:
 
 1. Clonas este repo base.
-2. Creas un nuevo proyecto (nuevo nombre, nuevo branding, nuevo contenido).
-3. Publicas ese proyecto en **otro repositorio** de GitHub.
-4. Mantienes este repo como base reusable.
+2. Definir el objetivo del nuevo proyecto: marca, industria, público, idioma, secciones y CTAs.
+3. Construir los componentes necesarios siguiendo la estructura de carpetas.
+4. Reemplazar textos, tokens visuales y assets según el branding del proyecto.
+5. Publicar el proyecto derivado en otro repositorio.
+6. Mantener este repo como base limpia para futuros proyectos.
 
 ### Cambiar remotos sin tocar el repo base
 
@@ -126,13 +117,13 @@ Debes ver:
 
 ```bash
 git add .
-git commit -m "Initial <nombre-del-proyecto> landing"
+git commit -m "Initial <nombre-del-proyecto> frontend"
 git push -u origin main
 ```
 
-Con esto publicas en el repo nuevo y **no sobrescribes** el starter base.
+Con esto publicas en el repo nuevo y no sobrescribes el starter base.
 
-### Checklist rápido (20 segundos)
+### Checklist rápido
 
 Antes de hacer `git push`:
 
@@ -143,24 +134,23 @@ git branch --show-current
 
 Confirma:
 
-- el branch actual es el esperado (ej. `main`)
+- el branch actual es el esperado
 - `origin` apunta al repo del proyecto actual
 - `upstream` apunta al repo base `landing-starter-kit`
 
-## Prompt Maestro Para Nuevos Repos White-Label
+## Prompt Maestro Para Nuevos Repos
 
-Usa este prompt al abrir un chat nuevo en el repo clonado/customizado.
-
-### Prompt Maestro (copiar y pegar)
+Usa este prompt al abrir un chat nuevo en un repo clonado desde esta base.
 
 ```txt
 Actúa como mi partner técnico para este repositorio.
 
 Contexto obligatorio:
-- Este repositorio es un proyecto derivado de un white-label starter.
+- Este repositorio deriva de un frontend starter base.
 - Este repo actual es independiente del repo base.
 - Nunca debes asumir cambios en el repo base; trabaja solo en este repo actual.
-- El objetivo es construir una landing de tipo {{tipoDeProyecto}}.
+- El starter solo trae configuración inicial y estructura de carpetas.
+- Debes crear los componentes, páginas y datos que el proyecto requiera.
 
 Objetivo del proyecto:
 - Marca: {{nombreMarca}}
@@ -172,52 +162,23 @@ Objetivo del proyecto:
 - Secciones requeridas: {{seccionesRequeridas}}
 
 Reglas de trabajo:
-1. Mantén enfoque white-label reusable: componentes configurables y contenido desacoplado.
-2. Antes de editar, revisa estructura y propone cambios concretos por archivo.
-3. Implementa directamente los cambios, luego valida con lint/build.
-4. Si algo requiere credenciales (ej: EmailJS), usa .env.local y conserva .env.example como plantilla.
-5. Prioriza responsive (mobile-first) y accesibilidad básica.
-6. Si detectas mejoras reutilizables para futuros proyectos, proponlas como bloques opcionales.
+1. Respeta la estructura de carpetas del starter.
+2. Crea componentes solo cuando el requerimiento lo justifique.
+3. Mantén contenido desacoplado cuando facilite reutilización o edición.
+4. Usa tokens de theme para colores, espaciado y radios.
+5. Prioriza responsive mobile-first y accesibilidad básica.
+6. Si algo requiere credenciales, usa `.env.local` y actualiza `.env.example`.
+7. Implementa directamente los cambios y valida con lint/build.
 
 Formato de respuesta esperado:
-- Resumen corto de lo que harás.
+- Resumen corto de lo implementado.
 - Cambios aplicados por archivo.
 - Validación ejecutada (lint/build).
 - Siguientes pasos recomendados.
 ```
 
-### Prompt Corto (rápido)
+## Prompt Corto
 
 ```txt
-Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para {{tipoDeProyecto}} con estilo {{estiloVisual}} e idiomas {{idiomas}}. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
+Este repo deriva de un frontend starter base. Quiero construir una landing para {{tipoDeProyecto}} con estilo {{estiloVisual}} e idiomas {{idiomas}}. Crea los componentes necesarios siguiendo la estructura del proyecto, implementa directamente y valida con lint/build.
 ```
-
-### Ejemplos de uso
-
-Ejemplo 1 (Clínica):
-
-```txt
-Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para clínica de salud integral con estilo profesional/minimalista e idiomas es,en. Secciones: Hero, Especialidades, Equipo médico, FAQs, Contacto con EmailJS. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
-```
-
-Ejemplo 2 (Salón de belleza):
-
-```txt
-Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para salón de belleza con estilo elegante/moderno e idiomas es,en. Secciones: Hero, Servicios, Galería, Testimonios, Contacto con WhatsApp y EmailJS. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
-```
-
-Ejemplo 3 (Servicio de limpieza):
-
-```txt
-Este repo es una derivación white-label independiente del starter base. Quiero construir una landing para servicio de limpieza residencial/comercial con estilo limpio/corporativo e idiomas es,en. Secciones: Hero, Planes, Cobertura, Testimonios, FAQs, Contacto. Trabaja con enfoque reusable, implementa cambios directamente, y valida con lint/build.
-```
-
-### Variables sugeridas para reemplazar
-
-- `{{tipoDeProyecto}}`: clínica, salón de belleza, limpieza, abogado, etc.
-- `{{nombreMarca}}`: nombre comercial final.
-- `{{publicoObjetivo}}`: segmento principal.
-- `{{idiomas}}`: `es,en` o `en` únicamente.
-- `{{ctaPrincipal}}`: “Agendar cita”, “Solicitar cotización”, etc.
-- `{{estiloVisual}}`: minimalista, elegante, corporativo, moderno.
-- `{{seccionesRequeridas}}`: lista de bloques obligatorios.

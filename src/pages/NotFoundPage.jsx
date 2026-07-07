@@ -1,20 +1,19 @@
-import { NavLink } from "react-router-dom";
-import Button from "../components/primitives/Button";
-import Container from "../components/primitives/Container";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 import { useI18n } from "../lang/i18n";
 
 function NotFoundPage() {
   const { t } = useI18n();
 
   return (
-    <main className="surface-section">
-      <Container>
-        <h1 style={{ color: "var(--color-primary)", marginTop: 0 }}>{t("pages.notFound.title")}</h1>
-        <p style={{ color: "var(--color-text-muted)" }}>{t("pages.notFound.description")}</p>
-        <NavLink to="/" style={{ display: "inline-block", marginTop: "1rem" }}>
-          <Button>{t("pages.notFound.backHome")}</Button>
-        </NavLink>
-      </Container>
+    <main className="starter-page">
+      <section className="starter-card" aria-labelledby="not-found-title">
+        <h1 id="not-found-title">{t("pages.notFound.title")}</h1>
+        <p>{t("pages.notFound.description")}</p>
+        <Button component={Link} to="/" variant="contained">
+          {t("pages.notFound.backHome")}
+        </Button>
+      </section>
     </main>
   );
 }
